@@ -18,6 +18,7 @@ A supervised, local-first Chrome extension for job applications. It stores your 
 - Province custom dropdowns search with `B` and then choose British Columbia, which works on portals where `BC` returns no results.
 - Country custom dropdowns search with `C`/`Can` and then choose Canada.
 - Manual choices in custom dropdowns can be learned for future applications.
+- Manual choices in native dropdowns can also be learned, including job-source questions such as “Where did you hear about this job?”
 - Co-op, school, and student email fields use **Co-op / school email**; work, company, and business email fields use **Work / company email**; neither falls back to your regular email.
 - If a saved answer is wrong, correct it on the form and the extension can learn the correction.
 - If you manually answer a new question, the extension can learn that answer for next time.

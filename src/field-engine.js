@@ -322,7 +322,7 @@
       };
     }
 
-    const learned = learnedAnswers && learnedAnswers[analysis.memoryKey];
+    const learned = findLearnedAnswer(analysis, learnedAnswers);
     if (learned && hasValue(learned.value)) {
       return {
         value: learned.value,
@@ -333,6 +333,21 @@
     }
 
     return null;
+  }
+
+  function findLearnedAnswer(analysis, learnedAnswers) {
+    if (!analysis || !learnedAnswers) {
+      return null;
+    }
+    if (analysis.memoryKey && learnedAnswers[analysis.memoryKey]) {
+      return learnedAnswers[analysis.memoryKey];
+    }
+    if (!analysis.key) {
+      return null;
+    }
+    return Object.values(learnedAnswers)
+      .filter((answer) => answer && answer.fieldKey === analysis.key && hasValue(answer.value))
+      .sort((left, right) => String(right.updatedAt || "").localeCompare(String(left.updatedAt || "")))[0] || null;
   }
 
   function hasValue(value) {
@@ -399,6 +414,7 @@
     bestValueFor,
     cssEscape,
     deepMerge,
+    findLearnedAnswer,
     getByPath,
     getProfileValue,
     hasValue,

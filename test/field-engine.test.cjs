@@ -26,6 +26,21 @@ test("infers work authorization and sponsorship questions", () => {
   assert.equal(engine.inferFromText("Will you now or in the future require visa sponsorship?").key, "needsSponsorshipUS");
 });
 
+test("recognizes job source questions and reuses learned answers by field key", () => {
+  const first = engine.inferFromText("Where did you hear about this job?");
+  const second = engine.inferFromText("How did you learn about this opportunity?");
+  const learned = {
+    "where did you hear about this job": {
+      fieldKey: "jobSource",
+      value: "LinkedIn",
+      updatedAt: "2026-05-16T20:00:00.000Z"
+    }
+  };
+  assert.equal(first.key, "jobSource");
+  assert.equal(second.key, "jobSource");
+  assert.equal(engine.bestValueFor(second, { career: {} }, learned).value, "LinkedIn");
+});
+
 test("marks sensitive fields", () => {
   const gender = engine.inferFromText("Gender");
   assert.equal(gender.key, "gender");

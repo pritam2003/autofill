@@ -54,6 +54,7 @@
       noticePeriod: "",
       earliestStartDate: "",
       remotePreference: "",
+      jobSource: "",
       willingToRelocate: "",
       authorizedToWorkUS: "",
       needsSponsorshipUS: "",
@@ -123,6 +124,7 @@
         { path: "career.noticePeriod", label: "Notice period" },
         { path: "career.earliestStartDate", label: "Earliest start date" },
         { path: "career.remotePreference", label: "Remote / hybrid preference" },
+        { path: "career.jobSource", label: "Where did you hear about this job?" },
         { path: "career.willingToRelocate", label: "Willing to relocate", type: "select", options: ["", "Yes", "No"] },
         { path: "career.authorizedToWorkUS", label: "Authorized to work in the US", type: "select", options: ["", "Yes", "No"] },
         { path: "career.needsSponsorshipUS", label: "Needs visa sponsorship in the US", type: "select", options: ["", "Yes", "No"] },
@@ -364,6 +366,22 @@
       key: "remotePreference",
       profilePath: "career.remotePreference",
       patterns: ["remote preference", "work preference", "hybrid", "remote work"]
+    },
+    {
+      key: "jobSource",
+      profilePath: "career.jobSource",
+      patterns: [
+        "where did you hear about this job",
+        "how did you hear about this job",
+        "where did you hear about this role",
+        "how did you hear about this role",
+        "how did you learn about this opportunity",
+        "where did you learn about this opportunity",
+        "source of application",
+        "application source",
+        "job source",
+        "referral source"
+      ]
     },
     {
       key: "willingToRelocate",

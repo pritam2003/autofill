@@ -534,7 +534,7 @@
       }
 
       const analysis = Engine.analyzeElement(input, document);
-      if (analysis.blocked || !analysis.memoryKey || analysis.confidence < 0.35) {
+      if (!canLearnAnswer(input, analysis)) {
         return;
       }
 
@@ -710,7 +710,7 @@
     }
 
     const analysis = Engine.analyzeElement(element, document);
-    if (analysis.blocked || !analysis.memoryKey || analysis.confidence < 0.35) {
+    if (!canLearnAnswer(element, analysis)) {
       return;
     }
 
@@ -749,6 +749,20 @@
       return element.textContent.trim();
     }
     return String(element.value || "").trim();
+  }
+
+  function canLearnAnswer(element, analysis) {
+    if (!analysis || analysis.blocked || !analysis.memoryKey) {
+      return false;
+    }
+    if (analysis.confidence >= 0.35) {
+      return true;
+    }
+    return isDropdownElement(element) && Engine.memoryKey(analysis.label).length >= 6;
+  }
+
+  function isDropdownElement(element) {
+    return element instanceof HTMLSelectElement || (element instanceof HTMLInputElement && isCustomSelectInput(element));
   }
 
   function saveLearnedAnswer(analysis, value, sensitive) {
