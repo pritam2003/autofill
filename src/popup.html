@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Autofill Copilot</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <header>
+        <div>
+          <p class="eyebrow">Supervised mode</p>
+          <h1>Job Autofill Copilot</h1>
+        </div>
+        <label class="switch" title="Turn autofill on for application pages">
+          <input id="enabled" type="checkbox">
+          <span></span>
+        </label>
+      </header>
+
+      <section class="status" id="status">Loading...</section>
+
+      <div class="actions">
+        <button id="fillNow" class="primary" type="button">Autofill this page</button>
+        <button id="pausePage" class="warning" type="button">Pause this page</button>
+        <button id="clearMarks" type="button">Clear marks</button>
+      </div>
+
+      <div class="meta">
+        <span id="stats">No runs yet</span>
+      </div>
+
+      <footer>
+        <button id="openOptions" type="button">Profile and memory</button>
+      </footer>
+    </main>
+    <script src="defaults.js"></script>
+    <script src="field-engine.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

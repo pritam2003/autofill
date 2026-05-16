@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Autofill Copilot Options</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local profile</p>
+          <h1>Job Autofill Copilot</h1>
+        </div>
+        <div class="top-actions">
+          <button id="exportData" type="button">Export</button>
+          <label class="import-button">
+            Import
+            <input id="importData" type="file" accept="application/json">
+          </label>
+          <button id="resetData" class="danger" type="button">Reset</button>
+        </div>
+      </header>
+
+      <section class="settings-panel" aria-label="Autofill settings">
+        <label><input id="autofillOnLoad" type="checkbox"> Fill when a page loads or changes</label>
+        <label><input id="fillKnownAnswersAutomatically" type="checkbox"> Fill all saved answers automatically</label>
+        <label><input id="highlightFilledFields" type="checkbox"> Highlight filled and suggested fields</label>
+        <label><input id="showReviewPanel" type="checkbox"> Show review panel on application pages</label>
+        <label><input id="learnFromManualInputs" type="checkbox"> Learn answers I type manually</label>
+        <label><input id="askBeforeSavingSensitive" type="checkbox"> Ask before saving sensitive answers</label>
+        <label><input id="fillSensitiveAutomatically" type="checkbox"> Fill sensitive answers automatically when review mode is on</label>
+        <label class="confidence">
+          Review-mode minimum confidence
+          <input id="minimumConfidence" type="range" min="0.4" max="0.95" step="0.01">
+          <span id="minimumConfidenceValue"></span>
+        </label>
+      </section>
+
+      <form id="profileForm" class="profile-grid"></form>
+
+      <section class="memory-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Adaptive memory</p>
+            <h2>Learned Answers</h2>
+          </div>
+          <form id="addMemoryForm" class="memory-add">
+            <input id="memoryQuestion" type="text" placeholder="Question or label contains">
+            <input id="memoryAnswer" type="text" placeholder="Answer">
+            <label><input id="memorySensitive" type="checkbox"> Sensitive</label>
+            <button type="submit">Add</button>
+          </form>
+        </div>
+        <div id="memoryList" class="memory-list"></div>
+      </section>
+
+      <p id="saveStatus" class="save-status" role="status">Ready.</p>
+    </main>
+
+    <script src="defaults.js"></script>
+    <script src="field-engine.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

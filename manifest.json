@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Job Autofill Copilot",
+  "version": "0.1.4",
+  "description": "A supervised, local-first autofill assistant for job applications.",
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_title": "Job Autofill Copilot"
+  },
+  "options_page": "src/options.html",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/defaults.js", "src/field-engine.js", "src/content.js"],
+      "css": ["src/content.css"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}
