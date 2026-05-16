@@ -273,6 +273,8 @@
             label: friendlyLabel(analysis, field),
             value: safeValueForReport(match.value),
             source: match.source,
+            fieldKey: analysis.key,
+            profilePath: analysis.profilePath,
             sensitive: Boolean(match.sensitive)
           });
         }
@@ -872,7 +874,7 @@
         ${items.slice(0, 8).map((item) => `
           <div class="job-autofill-item">
             <strong>Filled ${escapeHtml(item.label)}</strong>
-            <span>${escapeHtml(item.value)} from ${escapeHtml(item.source)}</span>
+            <span>${escapeHtml(item.value)} from ${escapeHtml(sourceLabel(item))}</span>
           </div>
         `).join("")}
         ${items.length > 8 ? `<div class="job-autofill-empty">${items.length - 8} more filled fields hidden.</div>` : ""}
@@ -999,6 +1001,22 @@
       parts.push(`${skipped.length} intentionally skipped`);
     }
     return `${parts.join(", ") || "Nothing to fill yet"} after ${reason}.`;
+  }
+
+  function sourceLabel(item) {
+    if (item.source !== "profile") {
+      return item.source;
+    }
+    if (item.profilePath === "personal.email") {
+      return "profile regular email";
+    }
+    if (item.profilePath === "personal.coopEmail") {
+      return "profile co-op / school email";
+    }
+    if (item.profilePath === "personal.workEmail") {
+      return "profile work / company email";
+    }
+    return item.source;
   }
 
   function friendlyLabel(analysis, element) {

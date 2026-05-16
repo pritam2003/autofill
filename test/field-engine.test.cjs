@@ -16,6 +16,9 @@ test("keeps co-op and school email separate from personal email", () => {
   assert.equal(engine.inferFromText("Student email").key, "coopEmail");
   assert.equal(engine.inferFromText("Company email").key, "workEmail");
   assert.equal(engine.inferFromText("Work email").key, "workEmail");
+  assert.equal(engine.inferFromText("sfuCoopEmail email SFU co-op email", { inputType: "email" }).profilePath, "personal.coopEmail");
+  assert.equal(engine.inferFromText("companyEmail email Company email", { inputType: "email" }).profilePath, "personal.workEmail");
+  assert.equal(engine.inferFromText("candidateEmail email Email Address", { inputType: "email" }).profilePath, "personal.email");
 });
 
 test("infers work authorization and sponsorship questions", () => {

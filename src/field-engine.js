@@ -126,6 +126,19 @@
       };
     }
 
+    const forcedEmailDefinition = emailDefinitionFor(normalizedText, fieldType);
+    if (forcedEmailDefinition) {
+      return {
+        ...forcedEmailDefinition,
+        confidence: 0.99,
+        label: String(text || ""),
+        normalizedLabel: normalizedText,
+        memoryKey: memoryKey(text),
+        sensitive: false,
+        blocked: false
+      };
+    }
+
     let best = null;
     FIELD_DEFINITIONS.forEach((definition) => {
       const confidence = scoreDefinition(normalizedText, fieldType, definition);
@@ -156,6 +169,37 @@
     }
 
     return best;
+  }
+
+  function emailDefinitionFor(normalizedText, fieldType) {
+    if (fieldType !== "email" && !normalizedText.includes("email")) {
+      return null;
+    }
+
+    const coopPatterns = [
+      "co op",
+      "coop",
+      "co-op",
+      "cooperative education",
+      "school email",
+      "student email",
+      "university email"
+    ];
+    const workPatterns = [
+      "work email",
+      "business email",
+      "company email",
+      "corporate email",
+      "employer email"
+    ];
+
+    if (includesAny(normalizedText, coopPatterns)) {
+      return FIELD_DEFINITIONS.find((definition) => definition.key === "coopEmail");
+    }
+    if (includesAny(normalizedText, workPatterns)) {
+      return FIELD_DEFINITIONS.find((definition) => definition.key === "workEmail");
+    }
+    return null;
   }
 
   function textFromElement(element, doc) {

@@ -222,7 +222,6 @@
     {
       key: "coopEmail",
       profilePath: "personal.coopEmail",
-      inputTypes: ["email"],
       patterns: [
         "co op email",
         "coop email",
@@ -240,7 +239,6 @@
     {
       key: "workEmail",
       profilePath: "personal.workEmail",
-      inputTypes: ["email"],
       patterns: [
         "work email",
         "business email",
