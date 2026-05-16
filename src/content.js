@@ -755,6 +755,9 @@
     if (!analysis || analysis.blocked || !analysis.memoryKey) {
       return false;
     }
+    if (Engine.hasProfileAnswer(state.profile, analysis)) {
+      return false;
+    }
     if (analysis.confidence >= 0.35) {
       return true;
     }
@@ -766,6 +769,9 @@
   }
 
   function saveLearnedAnswer(analysis, value, sensitive) {
+    if (Engine.hasProfileAnswer(state.profile, analysis)) {
+      return Promise.resolve(false);
+    }
     return new Promise((resolve) => {
       chrome.storage.local.get([STORAGE_KEYS.learnedAnswers], (stored) => {
         const learned = stored[STORAGE_KEYS.learnedAnswers] || {};

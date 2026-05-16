@@ -41,6 +41,22 @@ test("recognizes job source questions and reuses learned answers by field key", 
   assert.equal(engine.bestValueFor(second, { career: {} }, learned).value, "LinkedIn");
 });
 
+test("saved profile answers always win over conflicting learned memory", () => {
+  const email = engine.inferFromText("Email address");
+  const learned = {
+    "email address": {
+      fieldKey: "email",
+      value: "wrong@example.com",
+      updatedAt: "2026-05-16T20:00:00.000Z"
+    }
+  };
+  const match = engine.bestValueFor(email, { personal: { email: "right@example.com" } }, learned);
+
+  assert.equal(engine.hasProfileAnswer({ personal: { email: "right@example.com" } }, email), true);
+  assert.equal(match.value, "right@example.com");
+  assert.equal(match.source, "profile");
+});
+
 test("marks sensitive fields", () => {
   const gender = engine.inferFromText("Gender");
   assert.equal(gender.key, "gender");

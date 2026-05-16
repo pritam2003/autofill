@@ -20,7 +20,8 @@ A supervised, local-first Chrome extension for job applications. It stores your 
 - Manual choices in custom dropdowns can be learned for future applications.
 - Manual choices in native dropdowns can also be learned, including job-source questions such as “Where did you hear about this job?”
 - Co-op, school, and student email fields use **Co-op / school email**; work, company, and business email fields use **Work / company email**; neither falls back to your regular email.
-- If a saved answer is wrong, correct it on the form and the extension can learn the correction.
+- Explicit profile answers always beat learned memory. Learned answers are used only for questions that do not already have a saved profile answer.
+- If a saved profile answer is wrong, update it in **Profile and memory**; manual corrections are learned only for fields without a saved profile answer.
 - If you manually answer a new question, the extension can learn that answer for next time.
 - Existing fillable values are overwritten by default so each run refreshes the form from your saved profile.
 - It watches dynamic pages, so after you click Next, newly loaded forms are scanned again.

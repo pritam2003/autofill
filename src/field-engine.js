@@ -307,6 +307,10 @@
     return "";
   }
 
+  function hasProfileAnswer(profile, analysis) {
+    return hasValue(getProfileValue(profile, analysis));
+  }
+
   function bestValueFor(analysis, profile, learnedAnswers) {
     if (!analysis || analysis.blocked) {
       return null;
@@ -416,6 +420,7 @@
     deepMerge,
     findLearnedAnswer,
     getByPath,
+    hasProfileAnswer,
     getProfileValue,
     hasValue,
     inferFromText,
