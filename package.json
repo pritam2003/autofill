@@ -1,8 +1,9 @@
 {
   "name": "job-autofill-copilot",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "description": "A supervised, local-first Chrome extension for job application autofill.",
+  "license": "MIT",
   "scripts": {
     "test": "node --test test/*.test.cjs"
   }

@@ -1,59 +1,98 @@
 # Job Autofill Copilot
 
-A supervised, local-first Chrome extension for job applications. It stores your reusable profile answers in `chrome.storage.local`, reads application forms, fills high-confidence fields, and asks for review on sensitive or ambiguous fields.
+Job Autofill Copilot is a Chrome extension that helps you fill job applications faster while keeping you in control. You save your reusable information once, turn the extension on, and it fills matching fields as you move through application pages.
 
-## Load It In Chrome
+It is local-first:
 
-1. Open `chrome://extensions`.
-2. Turn on **Developer mode**.
-3. Choose **Load unpacked**.
-4. Select `/Users/pritamdatta/Desktop/autofill`.
-5. Open the extension popup and choose **Profile and memory**.
-6. Fill your profile values, then turn the extension on from the popup.
+- Your saved profile stays in Chrome extension storage on your own device.
+- It does not submit applications or click Next for you.
+- You can review and correct anything before sending an application.
 
-## How It Works
+![Job Autofill Copilot test lab preview](demo/test-lab-preview.png)
 
-- Saved profile and learned answers are filled automatically while the extension is on.
-- Country defaults to Canada and province/state defaults to British Columbia/BC when those profile fields are blank.
-- Province custom dropdowns search with `B` and then choose British Columbia, which works on portals where `BC` returns no results.
-- Country custom dropdowns search with `C`/`Can` and then choose Canada.
-- Manual choices in custom dropdowns can be learned for future applications.
-- Manual choices in native dropdowns can also be learned, including job-source questions such as “Where did you hear about this job?”
-- Co-op, school, and student email fields use **Co-op / school email**; work, company, and business email fields use **Work / company email**; neither falls back to your regular email.
-- Explicit profile answers always beat learned memory. Learned answers are used only for questions that do not already have a saved profile answer.
-- If a saved profile answer is wrong, update it in **Profile and memory**; manual corrections are learned only for fields without a saved profile answer.
-- If you manually answer a new question, the extension can learn that answer for next time.
-- Existing fillable values are overwritten by default so each run refreshes the form from your saved profile.
-- It watches dynamic pages, so after you click Next, newly loaded forms are scanned again.
-- It never clicks Submit or Next for you.
-- To bring back the old confirmation cards, turn off **Fill all saved answers automatically** in the options page.
-- If a custom dropdown gets weird, use **Pause this page** in the popup or the floating panel. Manual **Autofill this page** will retry once.
+## What It Can Do
 
-## Safety Boundaries
+- Fill common profile fields such as name, phone, LinkedIn, address, and work-authorization answers.
+- Keep personal email, co-op / school email, and work / company email separate.
+- Handle native dropdowns and custom dropdowns, including Canada and British Columbia.
+- Learn repeated answers from manual selections, such as "Where did you hear about this job?"
+- Re-scan newly loaded fields after you move to the next application page.
+- Overwrite existing field values from your saved profile so old or incorrect autofill does not stay behind.
 
-- Passwords, SSNs, credit cards, bank fields, and similar high-risk fields are blocked.
-- File inputs cannot be filled programmatically by browser extensions, so resume uploads still need your click.
-- All data stays local in Chrome extension storage unless you export it yourself.
+## What It Will Not Do
 
-## Demo
+- It will not click Submit or Next for you.
+- It will not fill passwords, SSNs, credit-card fields, bank details, or similar high-risk fields.
+- It cannot upload resume files for you because browsers block extensions from filling file inputs automatically.
+- Learned answers never override values you explicitly saved in your profile.
 
-From `/Users/pritamdatta/Desktop/autofill`, run:
+## Install In Chrome
 
-```bash
-python3 -m http.server 8765
-```
+1. Download this repository as a ZIP from GitHub, or clone it with Git:
 
-Then open one of these in Chrome:
+   ```bash
+   git clone https://github.com/pritam2003/autofill.git
+   ```
 
-- [http://127.0.0.1:8765/demo/job-application.html](http://127.0.0.1:8765/demo/job-application.html) for a simple form.
-- [http://127.0.0.1:8765/demo/test-lab.html](http://127.0.0.1:8765/demo/test-lab.html) for edge cases, custom dropdowns, dynamic fields, learning, and blocked fields.
+2. If you downloaded a ZIP, unzip it first.
+3. Open Chrome and go to `chrome://extensions`.
+4. Turn on **Developer mode** in the top-right corner.
+5. Click **Load unpacked**.
+6. Select the project folder named `autofill`.
+7. Open the extension, choose **Profile and memory**, and enter your own details.
+8. Turn the extension on from the popup.
 
-You can also open `/Users/pritamdatta/Desktop/autofill/demo/job-application.html` directly. If testing on a local file, enable **Allow access to file URLs** for this extension in `chrome://extensions`.
+## Use It
 
-## Development
+1. Open a job application page.
+2. Make sure the extension is turned on.
+3. The extension fills matching saved answers automatically.
+4. Review the form, correct anything if needed, and continue the application yourself.
 
-Run the matcher tests:
+If a dropdown behaves strangely, use **Pause this page** from the popup or floating panel, fix the field manually, and continue.
 
-```bash
-npm test
-```
+## How Learning Works
+
+- Saved profile answers always win.
+- Learned answers are used only when a field does not already have a saved profile value.
+- If you manually choose a repeated answer such as `LinkedIn` for "Where did you hear about this job?", the extension can remember that answer for future applications.
+- If a saved profile value is wrong, change it from **Profile and memory** instead of relying on a manual correction.
+
+## Test It Before Using It On Real Applications
+
+This repository includes two test pages:
+
+- [`demo/job-application.html`](demo/job-application.html) for a simple example form.
+- [`demo/test-lab.html`](demo/test-lab.html) for edge cases such as separate email types, native dropdowns, custom dropdowns, dynamic next-page fields, and blocked unsafe fields.
+
+To run the included test pages:
+
+1. Open a terminal in the project folder.
+2. Start a local server:
+
+   ```bash
+   python3 -m http.server 8765
+   ```
+
+3. Open one of these pages in Chrome:
+
+   - [http://127.0.0.1:8765/demo/job-application.html](http://127.0.0.1:8765/demo/job-application.html)
+   - [http://127.0.0.1:8765/demo/test-lab.html](http://127.0.0.1:8765/demo/test-lab.html)
+
+4. Turn on the extension and try filling the page.
+
+If you prefer opening the HTML files directly instead of using a local server, enable **Allow access to file URLs** for this extension in `chrome://extensions`.
+
+## Notes For Contributors
+
+- Main extension code lives in [`src/`](src).
+- Matcher tests live in [`test/field-engine.test.cjs`](test/field-engine.test.cjs).
+- Run tests with:
+
+  ```bash
+  npm test
+  ```
+
+## License
+
+This project is open source under the MIT License. See [`LICENSE`](LICENSE).
