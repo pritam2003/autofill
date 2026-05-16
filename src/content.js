@@ -228,7 +228,7 @@
           continue;
         }
 
-        if (hasExistingValue(field)) {
+        if (!state.settings.overwriteExistingValues && hasExistingValue(field)) {
           continue;
         }
 

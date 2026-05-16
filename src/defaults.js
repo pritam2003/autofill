@@ -12,6 +12,7 @@
   const DEFAULT_SETTINGS = {
     autofillOnLoad: true,
     fillKnownAnswersAutomatically: true,
+    overwriteExistingValues: true,
     fillSensitiveAutomatically: false,
     learnFromManualInputs: true,
     askBeforeSavingSensitive: true,

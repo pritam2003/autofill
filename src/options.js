@@ -20,6 +20,7 @@
   const settingIds = [
     "autofillOnLoad",
     "fillKnownAnswersAutomatically",
+    "overwriteExistingValues",
     "highlightFilledFields",
     "showReviewPanel",
     "learnFromManualInputs",

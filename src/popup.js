@@ -104,7 +104,10 @@
     const fillMode = settings.fillKnownAnswersAutomatically
       ? "Saved answers fill automatically."
       : "Review mode is on for uncertain answers.";
-    return `${mode} ${profileCount} profile values and ${learnedCount} learned answers are available. ${fillMode}`;
+    const overwriteMode = settings.overwriteExistingValues
+      ? "Existing values are overwritten."
+      : "Existing values are preserved.";
+    return `${mode} ${profileCount} profile values and ${learnedCount} learned answers are available. ${fillMode} ${overwriteMode}`;
   }
 
   function buildStats(stats) {
